@@ -1,8 +1,5 @@
 import javax.swing.*;
-import java.awt.Component;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
+import java.awt.*;
 import java.awt.event.*;
 
 import java.util.ArrayList;
@@ -35,8 +32,8 @@ public class MainApp extends JFrame{
 	
 	//	Кнопки
 	JButton buttonUdregn = new JButton(Lang.getLangString("Решить"));
-	JRadioButton resultOnly = new JRadioButton(Lang.getLangString("Показать только результат"));
-	JRadioButton calculateAll = new JRadioButton(Lang.getLangString("Показать промежуточный результат"));
+	JRadioButton resultOnly = new JRadioButton(Lang.getLangString("Показать только ответ"));
+	JRadioButton calculateAll = new JRadioButton(Lang.getLangString("Показать полное решение"));
 	JRadioButton manualPivot = new JRadioButton(Lang.getLangString("Выбрать точку поворота вручную"));
 	
 	
@@ -137,11 +134,12 @@ public class MainApp extends JFrame{
 				labels.add(new JLabel(varName + String.valueOf(i+1) + " +"));
 			} else {
 				labels.add(new JLabel(varName + String.valueOf(i+1)));
-				inputPanel.add(dropDown,theLayout);
+				labels.add(new JLabel("<html> <span style ='font-size:30px'> → </span></html>") );
 			}
 			inputPanel.add(labels.get(labels.size()-1),theLayout);
 		}
-
+		theLayout.gridx+=1;
+		inputPanel.add(dropDown,theLayout);
 		// Создание расположения филдов для ограничений
 		// Создание раскрывающихся списков для равенства / неравенства
 		inputConstraintVec = new JTextField[numOfConstraints];
@@ -169,7 +167,7 @@ public class MainApp extends JFrame{
 		theLayout.gridx=1;
 		theLayout.gridy+=1;
 		theLayout.gridwidth=20;
-		inputPanel.add(new JLabel(Lang.getLangString("Условия и положения:")),theLayout); 
+		inputPanel.add(new JLabel(Lang.getLangString("Матрица:")),theLayout);
 		theLayout.gridwidth=1;
 		for(int i=0;i<inputConstraintVec.length;i++){
 			theLayout.gridx=1;
@@ -791,8 +789,8 @@ public class MainApp extends JFrame{
 					res+="\t" + leftVector[i] + " = " + constraintVec[i].toString() + "\n";
 				}
 			}
-			res+="\n" + Lang.getLangString("Все переменные равны 0.");
-			res+="\n" + Lang.getLangString("Оптимальное решение ") + value;
+			res+="\n" + Lang.getLangString("-------------------");
+			res+="\n" + Lang.getLangString("F =  ") + value;
 		} else if(caseNum==0){
 				res+=Lang.getLangString("Имеет решение:\n");
 			for(int i=0;i<topVector.length;i++){
