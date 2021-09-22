@@ -101,5 +101,4 @@ public class Lang{
 		PopupWindows.ErrorMessage("Program received an unknown language option.", true);
 		return origString;	//Obsolete return
 	}
-	
 }

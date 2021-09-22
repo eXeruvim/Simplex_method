@@ -97,30 +97,27 @@ public class MainApp extends JFrame{
 
 		FocusListener listenFocus = new ListenForFocus();
 		
-		//	Расположение на панеле ввода
+		//	Расположение на панели ввода
 		inputPanel.setLayout(new GridBagLayout());
 				
 		GridBagConstraints theLayout = new GridBagConstraints();
-		
-		theLayout.gridx=1;
-		theLayout.gridy=1;
-		theLayout.gridwidth=1;
-		theLayout.gridheight=1;
-		theLayout.weightx=50;
-		theLayout.weighty=10;
+
+		theLayout.gridy=1;  // Отступ по x
+		theLayout.gridx=1;	// Отступ по y
+		theLayout.gridwidth=20;	// Ширина
+		theLayout.gridheight=1;	// Высота
+		theLayout.weightx=50;	// Ширина по х
+		theLayout.weighty=10;	// Ширина по у
 		theLayout.insets= new Insets(5,5,5,5);
 		theLayout.anchor = GridBagConstraints.CENTER;
 		theLayout.fill = GridBagConstraints.HORIZONTAL;
-		
+
 		
 		//	Добавление элементов на панель
-		theLayout.gridwidth=20;
-		inputPanel.add(new JLabel(Lang.getLangString("Целевая фукнция:")),theLayout);
-		theLayout.gridwidth=2;
-		
-		theLayout.gridy=2;
-		inputPanel.add(dropDown,theLayout);
+		inputPanel.add(new JLabel(Lang.getLangString("Целевая функция:")),theLayout);
+
 		theLayout.gridwidth=1;
+		theLayout.gridy=2;
 		theLayout.gridx+=1;
 		
 		//	Массив для целевой функции
@@ -139,12 +136,12 @@ public class MainApp extends JFrame{
 			if(i!=inputObjectFunc.length-1){
 				labels.add(new JLabel(varName + String.valueOf(i+1) + " +"));
 			} else {
-				labels.add(new JLabel(varName + String.valueOf(i+1)));		
+				labels.add(new JLabel(varName + String.valueOf(i+1)));
+				inputPanel.add(dropDown,theLayout);
 			}
 			inputPanel.add(labels.get(labels.size()-1),theLayout);
 		}
-		
-		
+
 		// Создание расположения филдов для ограничений
 		// Создание раскрывающихся списков для равенства / неравенства
 		inputConstraintVec = new JTextField[numOfConstraints];
@@ -167,8 +164,8 @@ public class MainApp extends JFrame{
 				inputConstraintMatrix[i][j].addFocusListener(listenFocus);
 			}
 		}
-		// FIXME: 020, 20.09.2021 
-		//	Добавление "строк"
+
+		//	Добавление "рабочей" области
 		theLayout.gridx=1;
 		theLayout.gridy+=1;
 		theLayout.gridwidth=20;
@@ -188,7 +185,7 @@ public class MainApp extends JFrame{
 				inputPanel.add(labels.get(labels.size()-1),theLayout);
 				theLayout.gridx+=1;
 			}
-			// Раскрывающийся список и "строка"
+			// Раскрывающийся список и "рабочая" область
 			inputPanel.add(constraintEq[i],theLayout);
 			theLayout.gridx+=1;
 			inputPanel.add(inputConstraintVec[i],theLayout);
@@ -199,16 +196,16 @@ public class MainApp extends JFrame{
 		JPanel bottomPanel = new JPanel();
 		bottomPanel.setLayout(new BoxLayout(bottomPanel,BoxLayout.X_AXIS));
 		bottomPanel.add(Box.createHorizontalGlue());
-			//	Добавление радиокнопок
+			//	Добавление радио-кнопок
 			ButtonGroup operatingMode = new ButtonGroup();
 			operatingMode.add(resultOnly);
 			operatingMode.add(calculateAll);
-			operatingMode.add(manualPivot);
+		//	operatingMode.add(manualPivot);
 			JPanel radioPanel = new JPanel();
 			radioPanel.setLayout(new BoxLayout(radioPanel,BoxLayout.Y_AXIS));
 			radioPanel.add(resultOnly);
 			radioPanel.add(calculateAll);
-			radioPanel.add(manualPivot);
+		//	radioPanel.add(manualPivot);
 			
 		bottomPanel.add(radioPanel);
 		bottomPanel.add(Box.createHorizontalGlue());
